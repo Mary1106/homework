@@ -1,6 +1,7 @@
 from src.masks import get_mask_card_number
 from src.masks import get_mask_account
 
+
 def mask_account_card(account_card: str) -> str | None:
     """Принимает на вход тип карты и ее номер или счет и его номер; возвращает маску карты или счета"""
     account_card_splited = account_card.split()
@@ -11,9 +12,7 @@ def mask_account_card(account_card: str) -> str | None:
     else:
         return None
 
-def get_date(date_time: str) -> str | None:
-    date_time_splited = date_time.split("T")
-    return
 
-date_time = "2024-03-11T02:26:18.671407"
-print(get_date(date_time))
+def get_date(date_time: str) -> str | None:
+    return f"{date_time[8:10]}.{date_time[5:7]}.{date_time[0:4]}"
+
