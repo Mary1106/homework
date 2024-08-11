@@ -14,5 +14,5 @@ def mask_account_card(account_card: str) -> str | None:
 
 
 def get_date(date_time: str) -> str | None:
+    """Принимает на вход дату в формате '2024-03-11T02:26:18.671407' и возвращает в формате ДД.ММ.ГГГГ"""
     return f"{date_time[8:10]}.{date_time[5:7]}.{date_time[0:4]}"
-
