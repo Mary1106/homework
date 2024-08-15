@@ -29,4 +29,4 @@ def date_time():
 
 
 def test_get_date_none(date_time):
-    assert get_date(date_time) == None
+    assert get_date(date_time) is None

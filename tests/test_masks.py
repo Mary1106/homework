@@ -12,7 +12,7 @@ def test_get_mask_card_number(card_number):
 
 
 def test_get_mask_card_number_none(card_number):
-    assert get_mask_card_number('') == None
+    assert get_mask_card_number('') is None
 
 
 @pytest.fixture
@@ -25,4 +25,4 @@ def test_get_mask_account(account):
 
 
 def test_get_mask_account_none(account):
-    assert get_mask_account('') == None
+    assert get_mask_account('') is None
