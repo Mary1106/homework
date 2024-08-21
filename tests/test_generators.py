@@ -74,45 +74,43 @@ def empty_currency():
 
 
 def test_filter_by_empty_currency(transactions: list[dict], empty_currency: str):
-    assert filter_by_currency(transactions, empty_currency) == []
+    assert list(filter_by_currency(transactions, empty_currency)) == []
 
 
 def test_filter_empty_list_by_currency(empty_transactions: list[dict], currency: str):
-    assert filter_by_currency(empty_transactions, currency) == []
+    assert list(filter_by_currency(empty_transactions, currency)) == []
 
 
 def test_filter_by_currency(transactions: list[dict], currency: str):
-    assert filter_by_currency(transactions, currency) == (
-        [
-            {
-                "id": 939719570,
-                "state": "EXECUTED",
-                "date": "2018-06-30T02:08:58.425572",
-                "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
-                "description": "Перевод организации",
-                "from": "Счет 75106830613657916952",
-                "to": "Счет 11776614605963066702",
-            },
-            {
-                "id": 142264268,
-                "state": "EXECUTED",
-                "date": "2019-04-04T23:20:05.206878",
-                "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
-                "description": "Перевод со счета на счет",
-                "from": "Счет 19708645243227258542",
-                "to": "Счет 75651667383060284188",
-            },
-            {
-                "id": 895315941,
-                "state": "EXECUTED",
-                "date": "2018-08-19T04:27:37.904916",
-                "operationAmount": {"amount": "56883.54", "currency": {"name": "USD", "code": "USD"}},
-                "description": "Перевод с карты на карту",
-                "from": "Visa Classic 6831982476737658",
-                "to": "Visa Platinum 8990922113665229",
-            },
-        ]
-    )
+    assert list(filter_by_currency(transactions, currency)) == [
+        {
+            "id": 939719570,
+            "state": "EXECUTED",
+            "date": "2018-06-30T02:08:58.425572",
+            "operationAmount": {"amount": "9824.07", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод организации",
+            "from": "Счет 75106830613657916952",
+            "to": "Счет 11776614605963066702",
+        },
+        {
+            "id": 142264268,
+            "state": "EXECUTED",
+            "date": "2019-04-04T23:20:05.206878",
+            "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод со счета на счет",
+            "from": "Счет 19708645243227258542",
+            "to": "Счет 75651667383060284188",
+        },
+        {
+            "id": 895315941,
+            "state": "EXECUTED",
+            "date": "2018-08-19T04:27:37.904916",
+            "operationAmount": {"amount": "56883.54", "currency": {"name": "USD", "code": "USD"}},
+            "description": "Перевод с карты на карту",
+            "from": "Visa Classic 6831982476737658",
+            "to": "Visa Platinum 8990922113665229",
+        }
+    ]
 
 
 def test_transaction_descriptions(transactions):
@@ -131,17 +129,17 @@ def test_transaction_empty_list_descriptions(empty_transactions):
 
 @pytest.fixture
 def start():
-    return 203050
+    return 2
 
 
 @pytest.fixture
 def stop():
-    return 40506080
+    return 10
 
 
 @pytest.fixture
-def start_les_then_zero():
-    return -12
+def start_less_then_zero():
+    return -1
 
 
 @pytest.fixture
@@ -154,3 +152,25 @@ def test_card_number_generator(start, stop):
         len(next(card_number_generator(start, stop))) == 19
         and len((next(card_number_generator(start, stop))).split()) == 4
     )
+
+
+def test_card_number_generator_list(start, stop):
+    assert list(card_number_generator(start, stop)) == [
+        "0000 0000 0000 0002",
+        "0000 0000 0000 0003",
+        "0000 0000 0000 0004",
+        "0000 0000 0000 0005",
+        "0000 0000 0000 0006",
+        "0000 0000 0000 0007",
+        "0000 0000 0000 0008",
+        "0000 0000 0000 0009",
+        "0000 0000 0000 0010",
+    ]
+
+
+def test_card_number_generator_less(start_less_then_zero, stop):
+    assert list(card_number_generator(start_less_then_zero, stop)) == []
+
+
+def test_card_number_generator_more(start, stop_bigger_then_ten_quadrillions):
+    assert list(card_number_generator(start, stop_bigger_then_ten_quadrillions)) == []
