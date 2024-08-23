@@ -22,17 +22,14 @@ def log(filename: str | None) -> Callable:
                     file.write(f"{log_message}\n")
             else:
                 print(log_message)
-            result = log_message
             return
         return wrapper
     return decorator
 
 
-@log(filename = "../logs/mylog.txt")
+@log(filename="../logs/mylog.txt")
 def my_function(x: int, y: int) -> int:
     return x + y
 
 
-print(my_function(1, 2))
-
-
+print(my_function("1", 2))
