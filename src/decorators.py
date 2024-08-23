@@ -2,32 +2,36 @@ from functools import wraps
 from typing import Any, Callable
 
 
-def log(filename: Any) -> Callable:
+def log(filename: str | None) -> Callable:
     """Логирует вызов функции и ее результат в файл или консоль"""
 
     def decorator(func: Callable) -> Callable:
         @wraps(func)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
-            result = func(*args, **kwargs)
+            """Обрабатываем исключения"""
             try:
-                result == sum(args)
-                filename.write("my_function ok")
-                print("my_function ok")
-            except Exception as e:
-                filename.write(f"my_function error: {e}. Inputs:{args}, {kwargs}")
-                print(f"my_function error: {e}. Inputs:{args}, {kwargs}")
-            return result
+                func(*args, **kwargs)
+            except Exception as error:
+                log_message = f"my_function is not ok: {error}. Inputs:{args}, {kwargs}"
+            else:
+                log_message = f"my_function is ok"
 
+            """Смотрим, куда отправить лог"""
+            if filename:
+                with open(filename, "a", encoding="utf-8") as file:
+                    file.write(f"{log_message}\n")
+            else:
+                print(log_message)
+            result = log_message
+            return
         return wrapper
-
     return decorator
 
 
-@log(filename="mylog.txt")
+@log(filename="../logs/mylog.txt")
 def my_function(x: int, y: int) -> int:
     return x + y
 
 
-my_function("1", "2")
-
+print(my_function("1", 2))
 
