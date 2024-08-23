@@ -28,10 +28,11 @@ def log(filename: str | None) -> Callable:
     return decorator
 
 
-@log(filename="../logs/mylog.txt")
+@log(filename = "../logs/mylog.txt")
 def my_function(x: int, y: int) -> int:
     return x + y
 
 
-print(my_function("1", 2))
+print(my_function(1, 2))
+
 
