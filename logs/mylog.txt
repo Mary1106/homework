@@ -1,4 +1,0 @@
-my_function is ok
-my_function is not ok: can only concatenate str (not "int") to str. Inputs:('1', 2), {}
-my_function is not ok: can only concatenate str (not "int") to str. Inputs:('1', 2), {}
-my_function is not ok: can only concatenate str (not "int") to str. Inputs:('1', 2), {}

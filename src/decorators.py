@@ -2,7 +2,7 @@ from functools import wraps
 from typing import Any, Callable
 
 
-def log(filename: str | None) -> Callable:
+def log(filename: str = None) -> Callable:
     """Логирует вызов функции и ее результат в файл или консоль"""
 
     def decorator(func: Callable) -> Callable:
@@ -14,10 +14,10 @@ def log(filename: str | None) -> Callable:
             except Exception as error:
                 log_message = f"my_function is not ok: {error}. Inputs:{args}, {kwargs}"
             else:
-                log_message = f"my_function is ok"
+                log_message = "my_function is ok"
 
             """Смотрим, куда отправить лог"""
-            if filename:
+            if filename is not None:
                 with open(filename, "a", encoding="utf-8") as file:
                     file.write(f"{log_message}\n")
             else:
@@ -25,11 +25,3 @@ def log(filename: str | None) -> Callable:
             return
         return wrapper
     return decorator
-
-
-@log(filename="../logs/mylog.txt")
-def my_function(x: int, y: int) -> int:
-    return x + y
-
-
-print(my_function("1", 2))
