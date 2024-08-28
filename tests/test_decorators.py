@@ -8,8 +8,7 @@ def test_log_not_ok(capsys):
 
     my_function(1, "2")
     captured = capsys.readouterr()
-    assert captured.out == ("my_function is not ok: unsupported operand type(s) for +: 'int' and 'str'. "
-                            "Inputs:(1, '2'), {}\n")
+    assert captured.out == "my_function is not ok: TypeError. Inputs:(1, '2'), {}\n"
 
 
 def test_log_ok(capsys):
@@ -19,11 +18,10 @@ def test_log_ok(capsys):
 
     my_function(1, 2)
     captured = capsys.readouterr()
-    assert captured.out == "my_function is ok\n"
+    assert captured.out == "my_function is ok: 3\n"
 
 
-def test_log_to_file(tmpdir):
-    # Используем временный файл для логов
+def test_log_ok_to_file(tmpdir):
     log_file = tmpdir.join("test_log.txt")
 
     @log(filename=None)
@@ -37,5 +35,5 @@ def test_log_to_file(tmpdir):
     with open(log_file.strpath, 'r') as f:
         content = f.read()
 
-    expected_content = "my_function is ok\n"
+    expected_content = "my_function is ok: 3\n"
     assert content == expected_content
