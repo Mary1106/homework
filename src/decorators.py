@@ -13,17 +13,26 @@ def log(filename: str | None = None) -> Callable:
             else:
                 print(message)
 
-        @wraps(func)
-        def wrapper(*args: Any, **kwargs: Any) -> Any:
+            @wraps(func)
+            def wrapper(*args: Any, **kwargs: Any) -> Any:
 
-            """Обрабатываем исключения"""
-            try:
-                func(*args, **kwargs)
-            except Exception as error:
-                log_message = f"{func.__name__} is not ok: {type(error).__name__}. Inputs:{args}, {kwargs}"
-            else:
-                log_message = f"{func.__name__} is ok: {func(*args, **kwargs)}"
+                """Обрабатываем исключения"""
+                try:
+                    result = func(*args, **kwargs)
+                except Exception as error:
+                    log_message = f"{func.__name__} is not ok: {type(error).__name__}. Inputs:{args}, {kwargs}"
+                    _log_result(log_message)
+                    raise
+                else:
+                    log_message = f"{func.__name__} is ok: {func(*args, **kwargs)}"
+                    _log_result(log_message)
+                    return result
+            return wrapper
 
-            return _log_result(log_message)
-        return wrapper
     return decorator
+
+@log()
+def some_func(a, b):
+    return a / b
+
+some_func(1, 0)
