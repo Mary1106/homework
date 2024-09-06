@@ -24,13 +24,11 @@ def test_log_ok(capsys):
 def test_log_ok_to_file(tmpdir):
     log_file = tmpdir.join("test_log.txt")
 
-    @log(filename=None)
+    @log(filename=log_file.strpath)
     def my_function(x: int, y: int) -> int:
         return x + y
 
-    decorated_func = log(log_file.strpath)(my_function)
-
-    decorated_func(1, 2)
+    my_function(1, 2)
 
     with open(log_file.strpath, 'r') as f:
         content = f.read()
