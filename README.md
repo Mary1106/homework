@@ -10,6 +10,7 @@
 - генерировать номер карты
 - фильтровать операции по валюте
 - отображать описание транзакций 
+- сохранять логи
 
 
 ## Установка и использование
@@ -149,10 +150,11 @@ sort_by_date(list_of_dict, reverse=True)
 ```pytest .```
 ### Покрытие:
 ```
-src\masks.py ........ 100%
-src\widget.py ....... 100%
-src\processing.py ... 100%
+src\decorators.py ... 100%
 src\generators.py ... 100%
+src\masks.py ........ 100%
+src\processing.py ... 100%
+src\widget.py ....... 100%
 ```
 ## Документация и ссылки
 ## Лицензия
