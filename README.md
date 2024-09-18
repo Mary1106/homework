@@ -150,8 +150,9 @@ sort_by_date(list_of_dict, reverse=True)
 ```pytest .```
 ### Покрытие:
 ```
+src\decorators.py ... 100%
+src\generators.py ... 100%
 src\masks.py ........ 100%
-src\widget.py ....... 100%
 src\processing.py ... 100%
 src\widget.py ....... 100%
 ```
