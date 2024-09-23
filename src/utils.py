@@ -11,7 +11,7 @@ file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 
-def get_operations(path_to_json):
+def get_operations(path_to_json: str) -> list | None:
     """Принимает на вход путь до JSON-файла; возвращает список словарей из существующего файла с json-данными или
     пустой список, если файл пуст или его нет"""
     if os.path.exists(path_to_json) and os.path.isfile(path_to_json):
@@ -19,13 +19,13 @@ def get_operations(path_to_json):
             with open(path_to_json, encoding='utf-8') as f:
                 data = json.load(f)
                 if type(data) is list:
-                    logger.info('Возвращаен список словарей из JSON-файла.')
+                    logger.info('Возвращен список словарей из JSON-файла.')
                     return data
                 else:
-                    logger.info('Возвращаен пустой список. JSON-файл пуст или отсутствует.')
+                    logger.info('Возвращен пустой список. JSON-файл пуст или отсутствует.')
                     return []
         except Exception as ex:
-            logger.error(f'Возвращаен пустой список. Произошла ошибка: {ex}.')
+            logger.error(f'Возвращен пустой список. Произошла ошибка: {ex}.')
             return []
 
 

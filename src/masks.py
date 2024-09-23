@@ -9,7 +9,6 @@ file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 
-
 def get_mask_card_number(card_number: str) -> str | None:
     """Принимает на вход номер карты (7000792289606361) и возвращает его маску (7000 79** **** 6361)."""
     if len(card_number) == 16:
