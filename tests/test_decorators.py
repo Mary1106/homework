@@ -6,7 +6,8 @@ def test_log_not_ok(capsys):
     def my_function(x: int, y: int) -> int:
         return x + y
 
-    my_function(1, "2")
+    with pytest.raises(TypeError):
+        my_function(1, "2")
     captured = capsys.readouterr()
     assert captured.out == "my_function is not ok: TypeError. Inputs:(1, '2'), {}\n"
 
