@@ -27,3 +27,6 @@ def get_operations(path_to_json: str) -> list | None:
         except Exception as ex:
             logger.error(f'Возвращен пустой список. Произошла ошибка: {ex}.')
             return []
+
+# path_to_json = os.path.join(os.path.dirname(__file__), '..', 'data', 'operations.json')
+# (get_operations(path_to_json))
