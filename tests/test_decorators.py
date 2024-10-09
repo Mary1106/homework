@@ -1,4 +1,5 @@
 from src.decorators import log
+import pytest
 
 
 def test_log_not_ok(capsys):
