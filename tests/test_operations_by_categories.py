@@ -63,9 +63,14 @@ def example_empty_transactions():
     return [{}]
 
 
-def test_operations_by_category(example_transactions):
-    assert operations_by_category(example_transactions) == {'Перевод организации': 2, 'Открытие вклада': 1}
+@pytest.fixture
+def categories_list():
+    return ['Открытие вклада', 'Перевод организации', 'Перевод с карты на карту', 'Перевод со счета на счет']
 
 
-def test_empty_operations_by_category(example_empty_transactions):
-    assert operations_by_category(example_empty_transactions) == {}
+def test_operations_by_category(example_transactions, categories_list):
+    assert operations_by_category(example_transactions, categories_list) == {'Открытие вклада': 1, 'Перевод организации': 2}
+
+
+def test_empty_operations_by_category(example_empty_transactions, categories_list):
+    assert operations_by_category(example_empty_transactions, categories_list) == {}
