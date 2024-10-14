@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import pytest
 from unittest.mock import patch
@@ -24,7 +25,9 @@ def test_df():
 @patch("src.utils_for_csv_excel.pd.read_csv")
 def test_get_operations_from_csv(mock_read, test_df):
     mock_read.return_value = test_df
-    result = get_operations_from_csv('C:/users/mary/PycharmProjects/my_prj/homework/data/transactions.csv')
+    current_dir = os.path.dirname(__file__)
+    transactions_csv_path = os.path.join(current_dir, '..', 'data', 'transactions.csv')
+    result = get_operations_from_csv(transactions_csv_path)
     expected = test_df.to_dict(orient='records')
     assert result == expected
 
@@ -36,7 +39,9 @@ def test_get_operations_from_csv_with_incorrect_path():
 @patch("src.utils_for_csv_excel.pd.read_excel")
 def test_get_operations_from_excel(mock_read, test_df):
     mock_read.return_value = test_df
-    result = get_operations_from_excel('C:/users/mary/PycharmProjects/my_prj/homework/data/transactions_excel.xlsx')
+    current_dir = os.path.dirname(__file__)
+    transactions_excel_path = os.path.join(current_dir, '..', 'data', 'transactions_excel.xlsx')
+    result = get_operations_from_excel(transactions_excel_path)
     expected = test_df.to_dict(orient='records')
     assert result == expected
 

@@ -3,7 +3,7 @@ def filter_by_state(list_of_dict: list[dict], state: str = "EXECUTED") -> list[d
     словарей, у которых ключ sate соответствует указанному значению."""
     filtered_list = []
     for i in list_of_dict:
-        if i["state"] == state:
+        if i.get("state") == state:
             filtered_list.append(i)
         else:
             continue
